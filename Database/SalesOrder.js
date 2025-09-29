@@ -48,8 +48,7 @@ async function createTables() {
         receiverAddress TEXT,
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50),
-        errorCode VARCHAR(100),
-        errorMsg TEXT,
+        responseCode VARCHAR(10),
         response_date TIMESTAMP
       );
     `);
