@@ -25,7 +25,7 @@ async function createTables() {
 
     // upstream_input_raw
     await client.query(`
-      CREATE TABLE IF NOT EXISTS inventory_upstream_input_raw (
+      CREATE TABLE IF NOT EXISTS inv_upstream_input_raw (
         uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         rawData JSONB,
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -36,51 +36,48 @@ async function createTables() {
 
     // upstream_input_formatted
     await client.query(`
-      CREATE TABLE IF NOT EXISTS inventory_upstream_input_formatted (
+      CREATE TABLE IF NOT EXISTS inv_upstream_input_formatted (
         uuid UUID DEFAULT gen_random_uuid(),
         rawUuid VARCHAR(255),
         appId VARCHAR(255),
         serviceType VARCHAR(255),
-        sku JSONB,
+        sku VARCHAR(255) NOT NULL,
         warehouse VARCHAR(255),
-        page INT,
-        pageSize INT,
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50),
-        errorCode VARCHAR(100),
-        errorMsg TEXT,
+        responseCode VARCHAR(10),
         response_date TIMESTAMP
       );
     `);
 
-    // inventory_base_req
+    // inv_base_req
     await client.query(`
-      CREATE TABLE IF NOT EXISTS inventory_base_req (
+      CREATE TABLE IF NOT EXISTS inv_base_req (
         uuid UUID DEFAULT gen_random_uuid(),
-        rawUuid VARCHAR(255),
+        uuid_upstream VARCHAR(255),
+        uuid_bizparam VARCHAR(255),
         appId VARCHAR(255),
         serviceType VARCHAR(255),
         bizParam TEXT,
-        timestamp BIGINT,
+        timestamp TEXT,
         sign TEXT,
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        state VARCHAR(50),
         errorCode VARCHAR(50),
         errorMsg TEXT,
-        state VARCHAR(50),
         bizContent TEXT,
         response_date TIMESTAMP
       );
     `);
 
-    // inventory_biz_param
+    // inv_biz_param
     await client.query(`
-      CREATE TABLE IF NOT EXISTS inventory_biz_param (
-        base_req_uuid VARCHAR(255),
-        rawUuid VARCHAR(255),
+      CREATE TABLE IF NOT EXISTS inv_biz_param (
+        uuid UUID DEFAULT gen_random_uuid(),
         skuList JSONB,
-        warehouse VARCHAR(255),
-        page INT,
-        pageSize INT,
+        warehouse VARCHAR(255) NOT NULL,
+        page INT NOT NULL,
+        pageSize INT NOT NULL,
         showCombine BOOLEAN,
         showEmpty BOOLEAN,
         originCurrency BOOLEAN,
@@ -89,11 +86,10 @@ async function createTables() {
       );
     `);
 
-    // inventory_biz_content_result
+    // inv_biz_content_result
     await client.query(`
-      CREATE TABLE IF NOT EXISTS inventory_biz_content_result (
+      CREATE TABLE IF NOT EXISTS inv_biz_content_result (
         base_req_uuid VARCHAR(255),
-        appId VARCHAR(255),
         sku VARCHAR(255),
         skuName VARCHAR(255),
         warehouse VARCHAR(255),
