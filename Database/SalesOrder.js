@@ -19,10 +19,10 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_upstream_input_raw (
         uuid UUID DEFAULT gen_random_uuid(),
-        rawData JSONB,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        rawResponse JSONB,
-        response_date TIMESTAMP
+        rawData JSONB NULL,
+        created_date TIMESTAMP NULL,
+        rawResponse JSONB NULL,
+        response_date TIMESTAMP NULL
       );
     `);
 
@@ -30,40 +30,42 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_upstream_input_formatted (
         uuid UUID DEFAULT gen_random_uuid(),
-        rawUuid VARCHAR(255),
-        appId VARCHAR(255),
-        shop VARCHAR(255),
-        serviceType VARCHAR(255),
-        onlineOrderNumber VARCHAR(255),
-        paymentMethod VARCHAR(255),
-        codPayAmount DECIMAL(10,2),
-        payTime VARCHAR(255),
-        sku JSONB,
-        receiverName VARCHAR(255),
-        receiverPhone VARCHAR(255),
-        receiverCountry VARCHAR(255),
-        receiverProvince VARCHAR(255),
-        receiverCity VARCHAR(255),
-        receiverPostcode VARCHAR(255),
-        receiverAddress TEXT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        state VARCHAR(50),
-        responseCode VARCHAR(10),
-        response_date TIMESTAMP
+        rawUuid VARCHAR(255) NULL,
+        appId VARCHAR(255) NULL,
+        shop VARCHAR(255) NULL,
+        serviceType VARCHAR(255) NULL,
+        onlineOrderNumber VARCHAR(255) NULL,
+        paymentMethod VARCHAR(255) NULL,
+        codPayAmount DECIMAL(10,2) NULL,
+        payTime VARCHAR(255) NULL,
+        sku JSONB NULL,
+        receiverName VARCHAR(255) NULL,
+        receiverPhone VARCHAR(255) NULL,
+        receiverCountry VARCHAR(255) NULL,
+        receiverProvince VARCHAR(255) NULL,
+        receiverCity VARCHAR(255) NULL,
+        receiverPostcode VARCHAR(255) NULL,
+        receiverAddress TEXT NULL,
+        created_date TIMESTAMP NULL,
+        state VARCHAR(50) NULL,
+        responseCode VARCHAR(10) NULL,
+        response_date TIMESTAMP NULL,
+        trackingNumber TEXT NULL,
+        carrier TEXT NULL
       );
     `);
 
     //upstream_input_formatted_sku
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_upstream_input_formatted_sku (
-        upstream_formatted_uuid VARCHAR(255),
-        onlineOrderNumber VARCHAR(255),
-        appId VARCHAR(255),
-        sku VARCHAR(255),
-        payAmount DECIMAL(10,2),
-        paymentPrice DECIMAL(10,2),
-        quantity INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        upstream_formatted_uuid VARCHAR(255) NULL,
+        onlineOrderNumber VARCHAR(255) NULL,
+        appId VARCHAR(255) NULL,
+        sku VARCHAR(255) NULL,
+        payAmount DECIMAL(10,2) NULL,
+        paymentPrice DECIMAL(10,2) NULL,
+        quantity INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
@@ -71,18 +73,18 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_base_req (
         uuid UUID DEFAULT gen_random_uuid(),
-        uuid_bizParam VARCHAR(255),
+        uuid_bizParam VARCHAR(255) NULL,
         appId VARCHAR(255) NOT NULL,
         serviceType VARCHAR(255) NOT NULL,
         bizParam TEXT NOT NULL,
         timestamp TEXT NOT NULL,
         sign TEXT NOT NULL,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        errorCode VARCHAR(50),
-        errorMsg TEXT,
-        state VARCHAR(50),
-        bizContent TEXT,
-        response_date TIMESTAMP
+        created_date TIMESTAMP NULL,
+        errorCode VARCHAR(50) NULL,
+        errorMsg TEXT NULL,
+        state VARCHAR(50) NULL,
+        bizContent TEXT NULL,
+        response_date TIMESTAMP NULL
       );
     `);
 
@@ -110,25 +112,25 @@ async function createTables() {
         documentType VARCHAR(255) NULL,
         documentName VARCHAR(255) NULL,
         trackingNumber VARCHAR(255) NULL,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_date TIMESTAMP NULL
       );
     `);
 
     //sales order sku list
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_sku_list (
-        onlineOrderNumber VARCHAR(255),
+        onlineOrderNumber VARCHAR(255) NULL,
         sku VARCHAR(255) NOT NULL,
         payAmount DECIMAL(10,2) NOT NULL, 
         paymentPrice DECIMAL(10,2) NOT NULL,
         quantity INT NOT NULL,
         shippingPrice DECIMAL(10,2) NULL,
-        promotionDiscount DECIMAL(10,2) NOT NULL,
+        promotionDiscount DECIMAL(10,2) NULL,
         batchNo VARCHAR(255) NULL,
         mfgDate VARCHAR(255) NULL,
         expDate VARCHAR(255) NULL,
-        originCountry VARCHAR(255),
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        originCountry VARCHAR(255) NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
@@ -148,7 +150,7 @@ async function createTables() {
         postCode VARCHAR(255) NOT NULL,
         address1 TEXT NOT NULL,
         address2 TEXT NULL,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_date TIMESTAMP NULL
       );
     `);
 
@@ -156,139 +158,142 @@ async function createTables() {
     // so_biz_content_result
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_bizContent_result (
-        base_req_uuid VARCHAR(255),
-        orderNumber VARCHAR(255),
-        sku VARCHAR(255),
-        parentOrderNumber VARCHAR(255),
-        isOriginalOrder BOOLEAN,
-        onlineOrderNumber VARCHAR(255),
-        shop VARCHAR(255),
-        warehouse VARCHAR(255),
-        status VARCHAR(255),
-        wmsStatus VARCHAR(255),
-        currency VARCHAR(255),
-        totalAmount DECIMAL(10,2),
-        freight DECIMAL(10,2),
-        buyerMessage VARCHAR(255),
-        sellerRemarks VARCHAR(255),
-        carries VARCHAR(255),
-        platform VARCHAR(255),
-        updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        trackingNumber VARCHAR(255),
-        paytime VARCHAR(255),
-        shippingTime VARCHAR(255),
-        createTime VARCHAR(255),
-        buyer JSONB,
-        estimateFulfillmentFee DECIMAL(5,2),
-        totalDiscount DECIMAL(5,2),
-        sellerDiscount DECIMAL(5,2),
-        platformRebate DECIMAL(5,2),
-        buyerPaidShippingFee DECIMAL(5,2),
-        finalProductProtection DECIMAL(5,2),
-        sellerDiscountForWook DECIMAL(5,2),
-        platformRebateForWook DECIMAL(5,2),
-        auditTime VARCHAR(255),
-        latestShipDate VARCHAR(255),
-        skuList JSONB,
-        tag JSONB,
-        platfromReturnToSeller DECIMAL(5,2),
-        isBusinessOrder BOOLEAN,
-        salesRecordNumber VARCHAR(255),
-        siteCode VARCHAR(255),
-        isAfn INT,
-        platformShippingTime VARCHAR(255),
-        paymentMethod VARCHAR(255),
-        isDeleted INT,
-        orderCustomFieldValueVOList JSONB,
-        subOrderNumberList JSONB,
-        onlineStatus VARCHAR(255),
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        base_req_uuid VARCHAR(255) NULL,
+        orderNumber VARCHAR(255) NULL,
+        parentOrderNumber VARCHAR(255) NULL,
+        isOriginalOrder BOOLEAN NULL,
+        onlineOrderNumber VARCHAR(255) NULL,
+        shop VARCHAR(255) NULL,
+        warehouse VARCHAR(255) NULL,
+        status VARCHAR(255) NULL,
+        wmsStatus VARCHAR(255) NULL, 
+        currency VARCHAR(255) NULL,
+        totalAmount DECIMAL(10,2) NULL,
+        freight DECIMAL(10,2) NULL,
+        buyerMessage VARCHAR(255) NULL,
+        sellerRemarks VARCHAR(255) NULL,
+        carries VARCHAR(255) NULL,
+        platform VARCHAR(255) NULL,
+        updateTime TIMESTAMP NULL,
+        trackingNumber VARCHAR(255) NULL,
+        paytime VARCHAR(255) NULL,
+        shippingTime VARCHAR(255) NULL,
+        createTime VARCHAR(255) NULL,
+        buyer JSONB NULL,
+        estimateFulfillmentFee DECIMAL(5,2) NULL,
+        totalDiscount DECIMAL(5,2) NULL,
+        sellerDiscount DECIMAL(5,2) NULL,
+        platformRebate DECIMAL(5,2) NULL,
+        buyerPaidShippingFee DECIMAL(5,2) NULL,
+        finalProductProtection DECIMAL(5,2) NULL,
+        sellerDiscountForWook DECIMAL(5,2) NULL,
+        platformRebateForWook DECIMAL(5,2) NULL,
+        auditTime VARCHAR(255) NULL,
+        latestShipDate VARCHAR(255) NULL,
+        skuList JSONB NULL,
+        tag JSONB NULL,
+        platfromReturnToSeller DECIMAL(5,2) NULL,
+        isBusinessOrder BOOLEAN NULL,
+        salesRecordNumber VARCHAR(255) NULL,
+        siteCode VARCHAR(255) NULL,
+        isAfn INT NULL,
+        platformShippingTime VARCHAR(255) NULL,
+        paymentMethod VARCHAR(255) NULL,
+        isDeleted INT NULL,
+        orderCustomFieldValueVOList JSONB NULL,
+        subOrderNumberList JSONB NULL,
+        onlineStatus VARCHAR(255) NULL,
+        created_date TIMESTAMP NULL,
+        codpayamount DECIMAL(10,2) NULL,
+        errorcode TEXT NULL,
+        errormsg TEXT NULL,
+        state VARCHAR(50) NULL
       );
     `);
 
     //sales order result_sku
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_result_sku (
-        onlineOrderNumber VARCHAR(255),
-        orderSkuId INT,
-        sku VARCHAR(255),
-        sourceCombinedSku VARCHAR(255),
-        quantity INT,
-        onlineItemId VARCHAR(255),
-        payAmount DECIMAL(10,2),
-        totalTax DECIMAL(10,2),
-        totalDiscount DECIMAL(10,2),
-        platformDiscount DECIMAL(10,2),
-        originalPrice DECIMAL(10,2),
-        paymentPrice DECIMAL(10,2),
-        shippingPrice DECIMAL(10,2),
-        promotionDiscount DECIMAL(10,2), 
-        discountPrice DECIMAL(10,2),
-        subSkuList JSONB,
-        tag JSONB,
-        points TEXT,
-        onlineProductCode VARCHAR(255),
-        onlineProductTitle VARCHAR(255),
-        onlineProductPicUrl TEXT,
-        onlineTransactionId VARCHAR(255),
-        snList JSONB,
-        giftFlag INT,
-        wmsSendAvailableQuantity INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        onlineOrderNumber VARCHAR(255) NULL,
+        orderSkuId INT NULL,
+        sku VARCHAR(255) NULL,
+        sourceCombinedSku VARCHAR(255) NULL,
+        quantity INT NULL,
+        onlineItemId VARCHAR(255) NULL,
+        payAmount DECIMAL(10,2) NULL,
+        totalTax DECIMAL(10,2) NULL,
+        totalDiscount DECIMAL(10,2) NULL,
+        platformDiscount DECIMAL(10,2) NULL,
+        originalPrice DECIMAL(10,2) NULL,
+        paymentPrice DECIMAL(10,2) NULL,
+        shippingPrice DECIMAL(10,2) NULL,
+        promotionDiscount DECIMAL(10,2) NULL, 
+        discountPrice DECIMAL(10,2) NULL,
+        subSkuList JSONB NULL,
+        tag JSONB NULL,
+        points TEXT NULL,
+        onlineProductCode VARCHAR(255) NULL,
+        onlineProductTitle VARCHAR(255) NULL,
+        onlineProductPicUrl TEXT NULL,
+        onlineTransactionId VARCHAR(255) NULL,
+        snList JSONB NULL,
+        giftFlag INT NULL,
+        wmsSendAvailableQuantity INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
     //sales order result_skuTag 
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_result_skuTag (
-        sku VARCHAR(255),
-        isGift INT,
-        preSale INT ,
-        hasRefund INT,
-        allReturned INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        onlineordernumber VARCHAR(255) NULL,
+        isGift INT NULL,
+        preSale INT NULL,
+        hasRefund INT NULL,
+        allReturned INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
     //sales order result_Tag 
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_result_tag (
-        onlineOrderNumber VARCHAR(255),
-        hasRefund INT,
-        itemReturned INT,
-        consolidated INT,
-        split INT,
-        locked INT,
-        sendWms INT,
-        sendFailed INT,
-        onlineShipFeedbackAlready INT,
-        onlineShipFeedbackFailed INT,
-        outOfStock INT,
-        preSale INT,
-        onlineShipped INT,
-        platformFulfillment INT,
-        partRefund INT,
-        allRefund INT,
-        allReturned INT,
-        partReturned INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        onlineOrderNumber VARCHAR(255) NULL,
+        hasRefund INT NULL,
+        itemReturned INT NULL,
+        consolidated INT NULL,
+        split INT NULL,
+        locked INT NULL,
+        sendWms INT NULL,
+        sendFailed INT NULL,
+        onlineShipFeedbackAlready INT NULL,
+        onlineShipFeedbackFailed INT NULL,
+        outOfStock INT NULL,
+        preSale INT NULL,
+        onlineShipped INT NULL,
+        platformFulfillment INT NULL,
+        partRefund INT NULL,
+        allRefund INT NULL,
+        allReturned INT NULL,
+        partReturned INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
     //sales order result_SkuCustomFieldValueVO 
     await client.query(`
       CREATE TABLE IF NOT EXISTS so_result_SkuCustomFieldValueVO (
-        sku VARCHAR(255),
-        tableName VARCHAR(255),
-        columType  VARCHAR(255),
-        columName VARCHAR(255),
-        defaultValue VARCHAR(255),
-        candidateValue VARCHAR(255),
-        remark VARCHAR(255),
-        required INT,
-        isQuery INT,
-        isShow INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        sku VARCHAR(255) NULL,
+        tableName VARCHAR(255) NULL,
+        columType  VARCHAR(255) NULL,
+        columName VARCHAR(255) NULL,
+        defaultValue VARCHAR(255) NULL,
+        candidateValue VARCHAR(255) NULL,
+        remark VARCHAR(255) NULL,
+        required INT NULL,
+        isQuery INT NULL,
+        isShow INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 

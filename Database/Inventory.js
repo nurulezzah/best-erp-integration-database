@@ -26,11 +26,11 @@ async function createTables() {
     // upstream_input_raw
     await client.query(`
       CREATE TABLE IF NOT EXISTS inv_upstream_input_raw (
-        uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        rawData JSONB,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        rawResponse JSONB,
-        response_date TIMESTAMP
+        uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+        rawData JSONB NULL,
+        created_date TIMESTAMP NULL,
+        rawResponse JSONB NULL,
+        response_date TIMESTAMP NULL
       );
     `);
 
@@ -38,15 +38,15 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS inv_upstream_input_formatted (
         uuid UUID DEFAULT gen_random_uuid(),
-        rawUuid VARCHAR(255),
-        appId VARCHAR(255),
-        serviceType VARCHAR(255),
-        sku VARCHAR(255) NOT NULL,
-        warehouse VARCHAR(255),
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        state VARCHAR(50),
-        responseCode VARCHAR(10),
-        response_date TIMESTAMP
+        rawUuid VARCHAR(255) NULL,
+        appId VARCHAR(255) NULL,
+        serviceType VARCHAR(255) NULL,
+        sku JSONB NOT NULL,
+        warehouse VARCHAR(255) NULL,
+        created_date TIMESTAMP NULL,
+        state VARCHAR(50) NULL,
+        responseCode VARCHAR(10) NULL,
+        response_date TIMESTAMP NULL
       );
     `);
 
@@ -54,19 +54,19 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS inv_base_req (
         uuid UUID DEFAULT gen_random_uuid(),
-        uuid_upstream VARCHAR(255),
-        uuid_bizparam VARCHAR(255),
-        appId VARCHAR(255),
-        serviceType VARCHAR(255),
-        bizParam TEXT,
-        timestamp TEXT,
-        sign TEXT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        state VARCHAR(50),
-        errorCode VARCHAR(50),
-        errorMsg TEXT,
-        bizContent TEXT,
-        response_date TIMESTAMP
+        uuid_upstream VARCHAR(255) NULL,
+        uuid_bizparam VARCHAR(255) NULL,
+        appId VARCHAR(255) NULL,
+        serviceType VARCHAR(255) NULL,
+        bizParam TEXT NULL,
+        timestamp TEXT NULL,
+        sign TEXT NULL,
+        created_date TIMESTAMP NULL,
+        state VARCHAR(50) NULL,
+        errorCode VARCHAR(50) NULL,
+        errorMsg TEXT NULL,
+        bizContent TEXT NULL,
+        response_date TIMESTAMP NULL
       );
     `);
 
@@ -74,52 +74,52 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS inv_biz_param (
         uuid UUID DEFAULT gen_random_uuid(),
-        skuList JSONB,
+        skuList JSONB NULL,
         warehouse VARCHAR(255) NOT NULL,
         page INT NOT NULL,
         pageSize INT NOT NULL,
-        showCombine BOOLEAN,
-        showEmpty BOOLEAN,
-        originCurrency BOOLEAN,
-        fillCostAndGoods BOOLEAN,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        showCombine BOOLEAN NULL,
+        showEmpty BOOLEAN NULL,
+        originCurrency BOOLEAN NULL,
+        fillCostAndGoods BOOLEAN NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
     // inv_biz_content_result
     await client.query(`
       CREATE TABLE IF NOT EXISTS inv_biz_content_result (
-        base_req_uuid VARCHAR(255),
-        sku VARCHAR(255),
-        skuName VARCHAR(255),
-        warehouse VARCHAR(255),
-        warehouseCode VARCHAR(255),
-        total INT,
-        available INT,
-        allocated INT,
-        unavailable INT,
-        shippingQuantity INT,
-        purchaseShippingQuantity INT,
-        firstLegShippingQuantity INT,
-        transferShippingQuantity INT,
-        assemblyShippingQuantity INT,
-        returnShippingQuantity INT,
-        manualShippingQuantity INT,
-        orderAllocated INT,
-        firstLegAllocated INT,
-        transferAllocated INT,
-        assemblyAllocated INT,
-        totalCost INT,
-        availableCost INT,
-        unavailableCost INT,
-        allocatedCost INT,
-        shippingCost INT,
-        totalGoods INT,
-        unavailableGoods INT,
-        availableGoods INT,
-        allocatedGoods INT,
-        shippingGoods INT,
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        base_req_uuid VARCHAR(255) NULL,
+        sku VARCHAR(255) NULL,
+        skuName VARCHAR(255) NULL,
+        warehouse VARCHAR(255) NULL,
+        warehouseCode VARCHAR(255) NULL,
+        total INT NULL,
+        available INT NULL,
+        allocated INT NULL,
+        unavailable INT NULL,
+        shippingQuantity INT NULL,
+        purchaseShippingQuantity INT NULL,
+        firstLegShippingQuantity INT NULL,
+        transferShippingQuantity INT NULL,
+        assemblyShippingQuantity INT NULL,
+        returnShippingQuantity INT NULL,
+        manualShippingQuantity INT NULL,
+        orderAllocated INT NULL,
+        firstLegAllocated INT NULL,
+        transferAllocated INT NULL,
+        assemblyAllocated INT NULL,
+        totalCost INT NULL,
+        availableCost INT NULL,
+        unavailableCost INT NULL,
+        allocatedCost INT NULL,
+        shippingCost INT NULL,
+        totalGoods INT NULL,
+        unavailableGoods INT NULL,
+        availableGoods INT NULL,
+        allocatedGoods INT NULL,
+        shippingGoods INT NULL,
+        created_date TIMESTAMP NULL
       );
     `);
 
