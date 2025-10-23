@@ -20,7 +20,7 @@ async function createTables() {
       CREATE TABLE IF NOT EXISTS so_upstream_input_raw (
         uuid UUID DEFAULT gen_random_uuid(),
         rawData JSONB NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         rawResponse JSONB NULL,
         response_date TIMESTAMP NULL
       );
@@ -46,7 +46,7 @@ async function createTables() {
         receiverCity VARCHAR(255) NULL,
         receiverPostcode VARCHAR(255) NULL,
         receiverAddress TEXT NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50) NULL,
         responseCode VARCHAR(10) NULL,
         response_date TIMESTAMP NULL,
@@ -65,7 +65,7 @@ async function createTables() {
         payAmount DECIMAL(10,2) NULL,
         paymentPrice DECIMAL(10,2) NULL,
         quantity INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -79,7 +79,7 @@ async function createTables() {
         bizParam TEXT NOT NULL,
         timestamp TEXT NOT NULL,
         sign TEXT NOT NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         errorCode VARCHAR(50) NULL,
         errorMsg TEXT NULL,
         state VARCHAR(50) NULL,
@@ -112,7 +112,7 @@ async function createTables() {
         documentType VARCHAR(255) NULL,
         documentName VARCHAR(255) NULL,
         trackingNumber VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -130,7 +130,7 @@ async function createTables() {
         mfgDate VARCHAR(255) NULL,
         expDate VARCHAR(255) NULL,
         originCountry VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -150,7 +150,7 @@ async function createTables() {
         postCode VARCHAR(255) NOT NULL,
         address1 TEXT NOT NULL,
         address2 TEXT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -203,7 +203,7 @@ async function createTables() {
         orderCustomFieldValueVOList JSONB NULL,
         subOrderNumberList JSONB NULL,
         onlineStatus VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         codpayamount DECIMAL(10,2) NULL,
         errorcode TEXT NULL,
         errormsg TEXT NULL,
@@ -239,7 +239,7 @@ async function createTables() {
         snList JSONB NULL,
         giftFlag INT NULL,
         wmsSendAvailableQuantity INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -251,7 +251,7 @@ async function createTables() {
         preSale INT NULL,
         hasRefund INT NULL,
         allReturned INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -276,7 +276,7 @@ async function createTables() {
         allRefund INT NULL,
         allReturned INT NULL,
         partReturned INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -293,7 +293,7 @@ async function createTables() {
         required INT NULL,
         isQuery INT NULL,
         isShow INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 

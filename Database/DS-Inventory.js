@@ -28,7 +28,7 @@ async function createTables() {
       CREATE TABLE IF NOT EXISTS founderhq_inv_downstream_input_raw (
         uuid UUID NOT NULL DEFAULT gen_random_uuid(),
         rawData JSONB NULL,
-        created_date TIMESTAMP NULL,
+        created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         rawResponse JSONB NULL,
         response_date TIMESTAMP NULL
       );
@@ -41,7 +41,7 @@ async function createTables() {
         rawUuid VARCHAR(255) NULL,
         sku VARCHAR(255) NULL,
         client VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL,
+        created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50) NULL,
         responseCode VARCHAR(10) NULL,
         response_date TIMESTAMP NULL
@@ -58,7 +58,7 @@ async function createTables() {
         serviceType VARCHAR(255) NULL,
         sku VARCHAR(255) NULL,
         warehouse VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL,
+        created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50) NULL,
         responseCode VARCHAR(10) NULL,
         response_date TIMESTAMP NULL
@@ -71,7 +71,7 @@ async function createTables() {
         uuid UUID NOT NULL DEFAULT gen_random_uuid(),
         downstream_output_uuid VARCHAR(255) NULL,
         rawData JSONB NULL,
-        created_date TIMESTAMP NULL,
+        created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         rawResponse JSONB NULL,
         response_date TIMESTAMP NULL
       );

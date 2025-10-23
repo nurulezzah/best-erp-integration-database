@@ -28,7 +28,7 @@ async function createTables() {
       CREATE TABLE IF NOT EXISTS inv_upstream_input_raw (
         uuid UUID NOT NULL DEFAULT gen_random_uuid(),
         rawData JSONB NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         rawResponse JSONB NULL,
         response_date TIMESTAMP NULL
       );
@@ -43,7 +43,7 @@ async function createTables() {
         serviceType VARCHAR(255) NULL,
         sku JSONB NOT NULL,
         warehouse VARCHAR(255) NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50) NULL,
         responseCode VARCHAR(10) NULL,
         response_date TIMESTAMP NULL
@@ -61,7 +61,7 @@ async function createTables() {
         bizParam TEXT NULL,
         timestamp TEXT NULL,
         sign TEXT NULL,
-        created_date TIMESTAMP NULL,
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         state VARCHAR(50) NULL,
         errorCode VARCHAR(50) NULL,
         errorMsg TEXT NULL,
@@ -82,7 +82,7 @@ async function createTables() {
         showEmpty BOOLEAN NULL,
         originCurrency BOOLEAN NULL,
         fillCostAndGoods BOOLEAN NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -119,7 +119,7 @@ async function createTables() {
         availableGoods INT NULL,
         allocatedGoods INT NULL,
         shippingGoods INT NULL,
-        created_date TIMESTAMP NULL
+        created_date  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
