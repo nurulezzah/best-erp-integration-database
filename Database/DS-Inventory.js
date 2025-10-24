@@ -51,7 +51,7 @@ async function createTables() {
 
     // so_downstream_output_formatted
     await client.query(`
-      CREATE TABLE IF NOT EXISTS founderhq_so_downstream_output_formatted (
+      CREATE TABLE IF NOT EXISTS founderhq_inv_downstream_output_formatted (
         uuid UUID NOT NULL DEFAULT gen_random_uuid(),
         downstream_input_uuid VARCHAR(255) NULL,
         appId VARCHAR(255) NULL,
