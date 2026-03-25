@@ -30,7 +30,8 @@ async function createTables() {
         rawData JSONB NULL,
         created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
         rawResponse JSONB NULL,
-        response_date TIMESTAMP NULL
+        response_date TIMESTAMP NULL,
+        last_sync_time TEXT NULL
       );
     `);
 
@@ -44,7 +45,7 @@ async function createTables() {
         number INT NULL,
         order_number VARCHAR(255) NULL,
         email VARCHAR(255) NULL,
-        customer_id VARCHAR(255) NULL,
+        customer_id INT NULL,
         customer JSONB NULL,
         currency_code VARCHAR(10) NULL,
         subtotal_price DECIMAL(10,2) NULL,
@@ -142,6 +143,13 @@ async function createTables() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS easystore_so_fulfillments (
         uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+        downstream_input_uuid VARCHAR(255) NULL,
+        order_id INT NULL,
+        status VARCHAR(20) NULL,
+        tracking_company VARCHAR(255) NULL,
+        tracking_number VARCHAR(255) NULL,
+        cancelled_at VARCHAR(255) NULL,
+        created_at TEXT NULL,
         created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -182,6 +190,13 @@ async function createTables() {
         payAmount DECIMAL(10,2) NULL,
         quantity INT NULL,
         created_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // last_sync_times
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS last_sync_times (
+        last_sync_time TEXT NULL
       );
     `);
 
